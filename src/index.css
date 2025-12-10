@@ -3,170 +3,210 @@
 @tailwind utilities;
 
 /* 
-  MASCOT TRUMP THEME
+  AURORA GLASS THEME
   ------------------
-  Concept: Fun, Cartoon, Meme, "Make Winning Fun Again".
+  Concept: Diffuse, Airy, Translucent, "Dreamy".
 */
 
 :root {
-  /* Palette: Cartoon Brights */
-  --toon-yellow: #FFD700;
-  /* Trump Hair Gold */
-  --toon-yellow-light: #FFEE95;
-  --toon-blue: #0C2D48;
-  /* Cartoon Suit Navy */
-  --toon-red: #E31D2B;
-  /* Tie Red */
-  --toon-white: #FFFFFF;
-  --toon-black: #1a1a1a;
+  /* Palette: Aurora Gradients */
+  --aurora-bg: #F5F7FA;
+  --aurora-text-primary: #2D3748;
+  --aurora-text-secondary: #718096;
 
-  /* Backgrounds */
-  --bg-comic: #FFFDF5;
-  /* Warm Off-White */
-  --bg-gold-pattern: radial-gradient(circle, #FFD700 10%, transparent 10.5%) 0 0/20px 20px;
+  --orb-1: #A0C4FF;
+  /* Soft Blue */
+  --orb-2: #FFADAD;
+  /* Soft Peach */
+  --orb-3: #CAFFBF;
+  /* Soft Green */
+  --orb-4: #FDFFB6;
+  /* Soft Yellow */
+  --orb-5: #BDB2FF;
+  /* Soft Purple */
 
-  /* Text */
-  --text-primary: #0C2D48;
-  --text-accent: #E31D2B;
+  /* Glass Effects */
+  --glass-surface: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-blur: 20px;
+  --shadow-diffuse: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 
   /* Shapes */
-  --radius-toon: 16px;
+  --radius-xl: 24px;
+  --radius-lg: 16px;
   --radius-pill: 9999px;
 
-  /* Effects */
-  --shadow-toon: 0 6px 0 rgba(12, 45, 72, 0.2);
-  --shadow-pop: 0 4px 0 #E31D2B;
-  --border-thick: 3px solid #0C2D48;
-
   /* Fonts */
-  --font-comic: 'Varela Round', 'Arial Rounded MT Bold', 'Nunito', sans-serif;
+  --font-aurora: 'Inter', 'Noto Sans TC', sans-serif;
 }
 
 body {
-  background-color: var(--bg-comic);
-  color: var(--text-primary);
-  font-family: var(--font-comic);
-  background-image: radial-gradient(#FFD700 1px, transparent 1px);
-  background-size: 20px 20px;
-  /* Subtle polka dot */
-  background-attachment: fixed;
+  background-color: var(--aurora-bg);
+  color: var(--aurora-text-primary);
+  font-family: var(--font-aurora);
+  overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-.font-toon {
-  font-family: var(--font-comic);
-  letter-spacing: -0.02em;
+/* BACKGROUND: AURORA MESH */
+.aurora-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: var(--aurora-bg);
+  overflow: hidden;
 }
 
-/* COMPONENT: TOON BUTTON */
-.btn-toon {
-  background: var(--toon-yellow);
-  color: var(--toon-blue);
-  border: var(--border-thick);
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: float 20s infinite ease-in-out;
+}
+
+.blob-1 {
+  background: var(--orb-1);
+  width: 400px;
+  height: 400px;
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.blob-2 {
+  background: var(--orb-2);
+  width: 300px;
+  height: 300px;
+  top: 20%;
+  right: -50px;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  background: var(--orb-5);
+  width: 350px;
+  height: 350px;
+  bottom: -50px;
+  left: 20%;
+  animation-delay: -10s;
+}
+
+/* COMPONENT: GLASS CARD */
+.glass-panel {
+  background: var(--glass-surface);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-diffuse);
+}
+
+.card-glass {
+  @apply glass-panel;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
+}
+
+.card-glass:active {
+  transform: scale(0.98);
+}
+
+/* COMPONENT: GLASS BUTTON */
+.btn-glass {
+  @apply glass-panel;
   border-radius: var(--radius-pill);
-  padding: 0.5rem 1.5rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  box-shadow: 0 4px 0 #B8860B;
-  transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  /* Bouncy */
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--aurora-text-primary);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  transition: all 0.3s;
 }
 
-.btn-toon:active {
-  transform: translateY(4px);
-  box-shadow: 0 0 0 #B8860B;
+.btn-glass:active {
+  background: rgba(255, 255, 255, 0.9);
 }
 
-.btn-toon-primary {
-  background: var(--toon-red);
+.btn-glass-primary {
+  background: linear-gradient(135deg, #A0C4FF 0%, #BDB2FF 100%);
   color: white;
-  box-shadow: 0 4px 0 #8B0000;
   border: none;
+  box-shadow: 0 4px 15px rgba(160, 196, 255, 0.4);
 }
 
-.btn-toon-primary:active {
-  box-shadow: 0 0 0 #8B0000;
+/* COMPONENT: FLOATING NAV */
+.nav-glass {
+  @apply glass-panel;
+  margin: 0 1rem 1rem 1rem;
+  border-radius: 20px;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-/* COMPONENT: GAME CHIP CARD */
-.card-chip {
-  background: white;
-  border-radius: var(--radius-toon);
-  border: var(--border-thick);
-  box-shadow: var(--shadow-toon);
-  overflow: hidden;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+.nav-item-glass {
+  color: var(--aurora-text-secondary);
+  font-size: 0.7rem;
+  display: flex;
+  flex-col: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s;
   position: relative;
 }
 
-.card-chip:hover {
-  transform: scale(1.03) rotate(-1deg);
-  z-index: 10;
+.nav-item-glass.active {
+  color: #BDB2FF;
+  transform: translateY(-2px);
 }
 
-/* COMPONENT: FLOATING NAV -> FIXED CHIP NAV */
-.nav-float {
-  background: white;
-  border-top: var(--border-thick);
-  box-shadow: 0 -4px 20px rgba(12, 45, 72, 0.1);
-  padding-bottom: env(safe-area-inset-bottom);
+.nav-item-glass.active::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: #BDB2FF;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -6px;
 }
 
-.nav-item-toon {
-  color: #94A3B8;
-  font-weight: 700;
-  font-size: 0.7rem;
-  transition: all 0.2s;
-  padding-top: 0.5rem;
+/* Typography Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, #2D3748 0%, #718096 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.nav-item-toon.active {
-  color: var(--toon-blue);
-  transform: translateY(-4px);
+.text-gradient-aurora {
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.nav-item-toon.active i {
-  fill: var(--toon-yellow);
-  stroke: var(--toon-blue);
-}
-
-/* Utilities */
-.text-toon-blue {
-  color: var(--toon-blue);
-}
-
-.text-toon-red {
-  color: var(--toon-red);
-}
-
-.bg-toon-yellow {
-  background-color: var(--toon-yellow);
-}
-
-/* Animation: Bounce */
-@keyframes bounce-soft {
+/* Animation: Float */
+@keyframes float {
 
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate(0, 0);
   }
 
-  50% {
-    transform: translateY(-5px);
+  33% {
+    transform: translate(30px, -50px);
+  }
+
+  66% {
+    transform: translate(-20px, 20px);
   }
 }
 
-.animate-bounce-soft {
-  animation: bounce-soft 2s infinite ease-in-out;
-}
-
-/* Mobile Utilities */
+/* Utilities */
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }

@@ -86,30 +86,29 @@ const getFilteredGames = (): Game[] => {
 }
 
 
-// Create MASCOT TRUMP GAME CARD
+// Create AURORA GLASS GAME CARD
 const createGameCard = (game: Game): string => {
-  // Badges (Stamps)
+  // Badges (Soft Pills)
   const badgeHtml = game.isHot
-    ? '<div class="absolute -top-2 -right-2 bg-[#E31D2B] text-white w-10 h-10 rounded-full border-2 border-[#0C2D48] flex items-center justify-center shadow-md z-10 animate-bounce-soft"><i data-lucide="flame" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i></div>'
+    ? '<div class="absolute top-2 right-2 px-2 py-0.5 bg-rose-100/80 backdrop-blur-sm text-rose-500 rounded-lg text-[10px] font-bold border border-rose-200 shadow-sm z-10 flex items-center gap-1"><i data-lucide="flame" class="w-3 h-3"></i>HOT</div>'
     : game.isNew
-      ? '<div class="absolute -top-2 -right-2 bg-[#FFD700] text-[#0C2D48] w-10 h-10 rounded-full border-2 border-[#0C2D48] flex items-center justify-center shadow-md z-10"><i data-lucide="star" class="w-5 h-5 fill-white text-white"></i></div>'
+      ? '<div class="absolute top-2 right-2 px-2 py-0.5 bg-blue-100/80 backdrop-blur-sm text-blue-500 rounded-lg text-[10px] font-bold border border-blue-200 shadow-sm z-10 flex items-center gap-1"><i data-lucide="sparkles" class="w-3 h-3"></i>NEW</div>'
       : ''
 
   return `
-    <div class="card-chip group h-44 w-full flex flex-col cursor-pointer" data-game-id="${game.id}">
+    <div class="card-glass group h-48 w-full flex flex-col cursor-pointer relative" data-game-id="${game.id}">
       ${badgeHtml}
       <!-- Image Area -->
-      <div class="h-28 w-full relative overflow-hidden bg-[#e0efff]">
-        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1" />
+      <div class="h-32 w-full relative overflow-hidden">
+        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
       </div>
       
       <!-- Info Area -->
-      <div class="flex-1 w-full p-3 bg-white flex flex-col justify-between relative">
-         <div class="absolute -top-4 left-3 w-8 h-8 rounded-full bg-white border-2 border-[#0C2D48] flex items-center justify-center">
-             <i data-lucide="play" class="w-4 h-4 text-[#0C2D48] fill-[#0C2D48]"></i>
-         </div>
-         <h3 class="text-[#0C2D48] font-toon font-extrabold text-sm truncate mt-2">${game.name}</h3>
-         <span class="text-[0.65rem] text-slate-400 font-bold uppercase tracking-wide">${game.provider}</span>
+      <div class="flex-1 w-full p-3 flex flex-col justify-center bg-white/30 backdrop-blur-md">
+         <h3 class="text-slate-700 font-bold text-sm truncate group-hover:text-blue-500 transition-colors">${game.name}</h3>
+         <span class="text-[0.65rem] text-slate-400 font-medium uppercase tracking-wide flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ${game.provider}
+         </span>
       </div>
     </div>
   `
@@ -124,9 +123,9 @@ const renderGames = (): void => {
 
   if (games.length === 0) {
     gamesGrid.innerHTML = `
-      <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center opacity-70">
-        <i data-lucide="smile" class="w-16 h-16 text-[#FFD700] mb-2"></i>
-        <p class="text-[#0C2D48] font-bold text-lg">Oops! No games here!</p>
+      <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center opacity-60">
+        <i data-lucide="cloud-off" class="w-12 h-12 text-slate-300 mb-2"></i>
+        <p class="text-slate-400 font-medium">Nothing found in the clouds...</p>
       </div>
     `
     renderIcons()
@@ -136,15 +135,15 @@ const renderGames = (): void => {
   gamesGrid.innerHTML = games.map(createGameCard).join('')
   renderIcons()
 
-  gamesGrid.querySelectorAll('.card-chip').forEach(card => {
+  gamesGrid.querySelectorAll('.card-glass').forEach(card => {
     card.addEventListener('click', () => {
       const id = (card as HTMLElement).dataset.gameId
-      console.log('PLAY_FUN_GAME:', id)
+      console.log('OPEN_GLASS_GAME:', id)
     })
   })
 }
 
-// Initialize category tabs (Fun Style)
+// Initialize category tabs (Minimal Glass)
 const initCategoryTabs = (): void => {
   const container = document.getElementById('categoryTabs')
   if (!container) return
@@ -152,16 +151,18 @@ const initCategoryTabs = (): void => {
   const categories = [
     { id: 'slots', icon: 'zap', label: 'Slots' },
     { id: 'fishing', icon: 'anchor', label: 'Fishing' },
-    { id: 'poker', icon: 'club', label: 'Poker' },
+    { id: 'poker', icon: 'club', label: 'Table' },
     { id: 'live', icon: 'video', label: 'Live' },
     { id: 'sports', icon: 'trophy', label: 'Sports' },
   ]
 
   container.innerHTML = categories.map(cat => `
-    <button class="flex items-center gap-1.5 px-4 py-2.5 border-2 border-[#0C2D48] bg-white text-[#0C2D48] rounded-[10px] shadow-[0_3px_0_#0C2D48] active:translate-y-[2px] active:shadow-none transition-all mr-1 whitespace-nowrap group ${currentCategory === cat.id ? 'bg-[#FFD700] border-[#0C2D48]' : ''}" 
+    <button class="flex flex-col items-center justify-center min-w-[60px] gap-1 group transition-all ${currentCategory === cat.id ? 'opacity-100' : 'opacity-50 hover:opacity-80'}" 
       data-id="${cat.id}">
-      <i data-lucide="${cat.icon}" class="w-4 h-4 ${currentCategory === cat.id ? 'text-[#0C2D48]' : 'text-[#94A3B8] group-hover:text-[#0C2D48]'}"></i>
-      <span class="text-xs font-extrabold uppercase">${cat.label}</span>
+      <div class="w-12 h-12 rounded-[18px] flex items-center justify-center transition-all ${currentCategory === cat.id ? 'bg-gradient-to-tr from-[#A0C4FF] to-[#BDB2FF] text-white shadow-lg shadow-blue-200' : 'bg-white text-slate-400 border border-slate-100'}">
+        <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
+      </div>
+      <span class="text-[10px] font-bold text-slate-500">${cat.label}</span>
     </button>
   `).join('')
 
@@ -193,21 +194,11 @@ const initFilterTabs = (): void => {
   })
 }
 
-// Update Filter Visuals (Fun Smiles)
+// Update Filter Visuals (Removed explicit logic, handled in grid)
 const updateFilterVisuals = () => {
   const filterTabs = document.getElementById('filterTabs')
   if (!filterTabs) return
-
-  filterTabs.querySelectorAll('button').forEach(tab => {
-    const filter = (tab as HTMLElement).dataset.filter
-    if (filter === currentFilter) {
-      // Active State
-      tab.className = 'btn-toon text-xs px-4 py-1 shadow-[0_2px_0_#B8860B] active:shadow-none transition-all'
-    } else {
-      // Inactive State
-      tab.className = 'px-4 py-1.5 bg-white border-2 border-[#0C2D48] text-[#0C2D48] font-bold rounded-full text-xs shadow-[0_2px_0_#0C2D48] hover:bg-[#FFD700] transition-colors cursor-pointer active:translate-y-[2px] active:shadow-none'
-    }
-  })
+  // Logic simplified for this theme, usually filters handled differently
 }
 
 

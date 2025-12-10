@@ -18,117 +18,135 @@
 
 <body class="font-sans antialiased text-slate-50 selection:bg-[#FFD700] selection:text-slate-900">
   <div id="app" class="min-h-screen flex flex-col bg-neon-bg text-white pb-safe">
-    <!-- Fun Header -->
-    <header
-      class="fixed top-0 left-0 right-0 z-50 bg-[#FFD700] border-b-4 border-[#0C2D48] shadow-[0_4px_0_rgba(0,0,0,0.1)] h-[80px]">
-      <div class="w-full h-full relative px-4 flex items-center justify-between pb-1">
-        <!-- Logo Image (Enlarged & Bottom Aligned) -->
-        <div class="absolute bottom-0 left-4 z-10">
-          <img src="/logo.png" alt="Trump Mascot"
-            class="h-16 w-auto object-contain drop-shadow-sm filter brightness-110 translate-y-2" />
+    <!-- Aurora Background Animation -->
+    <div class="aurora-bg">
+      <div class="aurora-blob blob-1"></div>
+      <div class="aurora-blob blob-2"></div>
+      <div class="aurora-blob blob-3"></div>
+    </div>
+
+    <!-- Glass Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 pt-safe px-4 py-2">
+      <div class="glass-panel rounded-full px-4 py-2 flex items-center justify-between">
+        <!-- Brand -->
+        <div class="flex items-center gap-2">
+          <div
+            class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#A0C4FF] to-[#BDB2FF] flex items-center justify-center text-white font-bold text-xs shadow-md">
+            U
+          </div>
+          <span class="font-bold text-lg text-slate-700 tracking-tight">U-Cloud</span>
         </div>
 
-        <!-- Actions (Right Aligned) -->
-        <div class="ml-auto flex items-center gap-2 mb-2">
-          <button
-            class="w-9 h-9 bg-white rounded-full border-2 border-[#0C2D48] flex items-center justify-center shadow-[0_2px_0_#0C2D48] active:translate-y-[2px] active:shadow-none transition-all">
-            <i data-lucide="bell" class="w-5 h-5 text-[#0C2D48]"></i>
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <button class="relative">
+            <i data-lucide="bell" class="w-5 h-5 text-slate-500"></i>
+            <span class="absolute top-0 right-0 w-2 h-2 bg-red-400 rounded-full border border-white"></span>
           </button>
-          <button
-            class="px-4 py-1.5 bg-[#E31D2B] text-white font-extrabold rounded-full border-2 border-[#0C2D48] shadow-[0_2px_0_#0C2D48] text-xs active:translate-y-[2px] active:shadow-none transition-all">
-            LOGIN
-          </button>
+          <div class="w-8 h-8 rounded-full bg-white border border-slate-200 overflow-hidden">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" />
+          </div>
         </div>
       </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 w-full pt-[90px] pb-24 overflow-y-auto no-scrollbar">
+    <main class="flex-1 w-full pt-[80px] pb-28 px-4 overflow-y-auto no-scrollbar">
 
-      <!-- Hero Banner (Comic Style) -->
-      <div class="relative w-full mb-6 px-4 pt-2">
-        <div
-          class="bg-[#0C2D48] rounded-[24px] p-6 text-center relative overflow-hidden shadow-[0_8px_0_rgba(0,0,0,0.1)]">
-          <!-- Background Circles -->
-          <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#FFD700] rounded-full opacity-20"></div>
-          <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#E31D2B] rounded-full opacity-20"></div>
+      <!-- Hero Section (Welcome Card) -->
+      <div class="glass-panel rounded-[24px] p-6 mb-6 relative overflow-hidden group">
+        <div class="relative z-10">
+          <p class="text-sm text-slate-500 font-medium mb-1">Good Morning,</p>
+          <h2 class="text-2xl font-bold text-slate-800 mb-4">Explore the <br><span class="text-gradient-aurora">Digital
+              Universe</span></h2>
 
-          <div class="relative z-10 flex flex-col items-center">
-            <span
-              class="bg-[#FFD700] text-[#0C2D48] px-3 py-1 rounded-full text-xs font-black border-2 border-[#0C2D48] mb-2 transform -rotate-3">FUN
-              MODE ON!</span>
-            <h2 class="text-3xl font-black text-white italic drop-shadow-md mb-2">WINNING IS<br><span
-                class="text-[#FFD700]">YUUUGE!</span></h2>
-            <p class="text-white/80 text-sm font-bold mb-4">Best games. Tremendous wins. Everyone says so!</p>
-            <button class="btn-toon btn-toon-primary text-sm animate-bounce-soft">PLAY NOW!</button>
+          <div class="flex gap-3">
+            <button class="btn-glass btn-glass-primary shadow-lg active:scale-95 transition-transform">
+              Start Journey
+            </button>
+            <button
+              class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-slate-600 active:scale-95 transition-transform">
+              <i data-lucide="search" class="w-4 h-4"></i>
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- Categories (Pills) - Reduced Gap -->
-      <div class="px-4 mb-4">
-        <div class="flex overflow-x-auto gap-2 pb-4 scrollbar-hide pl-1" id="categoryTabs">
-          <!-- Injected via JS -->
+        <!-- Decoration -->
+        <div
+          class="absolute -right-4 -bottom-8 w-32 h-32 bg-gradient-to-br from-[#A0C4FF] to-[#BDB2FF] rounded-full blur-xl opacity-60 group-hover:scale-110 transition-transform duration-700">
         </div>
       </div>
 
-      <!-- Filter Tabs (Smiles) - Increased Padding to prevent clipping -->
-      <div class="px-4 mb-2 flex gap-2 overflow-x-auto scrollbar-hide pl-1 pb-4" id="filterTabs">
-        <button class="btn-toon text-xs px-4 py-1 shadow-[0_2px_0_#B8860B] active:shadow-none"
-          data-filter="all">ALL</button>
+      <!-- Quick Actions (Glass Pills) -->
+      <div class="flex overflow-x-auto gap-3 pb-4 scrollbar-hide mb-2 pl-1">
         <button
-          class="px-4 py-1.5 bg-white border-2 border-[#0C2D48] text-[#0C2D48] font-bold rounded-full text-xs shadow-[0_2px_0_#0C2D48] hover:bg-[#FFD700] transition-colors"
-          data-filter="hot">🔥 HOT</button>
+          class="glass-panel px-4 py-2 rounded-xl flex items-center gap-2 min-w-max active:scale-95 transition-transform">
+          <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-500"><i
+              data-lucide="clock" class="w-3 h-3"></i></div>
+          <span class="text-xs font-semibold text-slate-600">Recent</span>
+        </button>
         <button
-          class="px-4 py-1.5 bg-white border-2 border-[#0C2D48] text-[#0C2D48] font-bold rounded-full text-xs shadow-[0_2px_0_#0C2D48] hover:bg-[#FFD700] transition-colors"
-          data-filter="new">✨ NEW</button>
+          class="glass-panel px-4 py-2 rounded-xl flex items-center gap-2 min-w-max active:scale-95 transition-transform">
+          <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-purple-500"><i
+              data-lucide="zap" class="w-3 h-3"></i></div>
+          <span class="text-xs font-semibold text-slate-600">Trending</span>
+        </button>
+        <button
+          class="glass-panel px-4 py-2 rounded-xl flex items-center gap-2 min-w-max active:scale-95 transition-transform">
+          <div class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-500"><i
+              data-lucide="gift" class="w-3 h-3"></i></div>
+          <span class="text-xs font-semibold text-slate-600">Rewards</span>
+        </button>
       </div>
 
-      <!-- Data Grid -->
-      <div class="px-4 grid grid-cols-2 gap-3" id="gamesGrid">
+      <!-- Category Tabs (Minimal) -->
+      <div class="flex items-center justify-between mb-4 px-1">
+        <h3 class="font-bold text-lg text-slate-800">Collections</h3>
+        <button class="text-xs text-slate-400 font-medium hover:text-slate-600">View All</button>
+      </div>
+
+      <div class="flex overflow-x-auto gap-4 pb-2 scrollbar-hide mb-6" id="categoryTabs">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Content Grid -->
+      <div class="grid grid-cols-2 gap-4" id="gamesGrid">
         <!-- Injected via JS -->
       </div>
 
       <!-- Load More -->
-      <div class="mt-8 text-center pb-8 px-8">
+      <div class="mt-8 text-center pb-4">
         <button
-          class="w-full py-3 bg-white border-2 border-[#0C2D48] rounded-[16px] text-[#0C2D48] font-black shadow-[0_4px_0_#0C2D48] active:translate-y-[4px] active:shadow-none transition-all"
+          class="text-xs font-bold text-slate-400 uppercase tracking-widest hover:text-slate-600 transition-colors"
           id="loadMoreBtn">
-          SHOW MORE FUN!
+          Discover More
         </button>
       </div>
     </main>
 
-    <!-- Fixed Nav (Bottom) - Full Width -->
-    <div class="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
-      <nav class="nav-float w-full h-auto flex items-end justify-around px-0 pointer-events-auto pb-4 pt-1 bg-white">
-        <button class="nav-item-toon active flex flex-col items-center justify-center w-1/5 gap-0.5" data-nav="home">
-          <i data-lucide="home" class="w-6 h-6 stroke-[3]"></i>
-          <span class="text-[10px]">HOME</span>
+    <!-- Floating Nav (Glass Bar) -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 pb-safe pointer-events-none">
+      <nav class="nav-glass pointer-events-auto">
+        <button class="nav-item-glass active flex flex-col items-center justify-center w-12" data-nav="home">
+          <i data-lucide="home" class="w-5 h-5"></i>
         </button>
 
-        <button class="nav-item-toon flex flex-col items-center justify-center w-1/5 gap-0.5" data-nav="promo">
-          <i data-lucide="gift" class="w-6 h-6 stroke-[3]"></i>
-          <span class="text-[10px]">PERKS</span>
+        <button class="nav-item-glass flex flex-col items-center justify-center w-12" data-nav="promo">
+          <i data-lucide="compass" class="w-5 h-5"></i>
         </button>
 
-        <!-- Center Floating Action - Moved slightly down relative to fixed nav -->
-        <div class="relative w-1/5 flex justify-center -top-6">
-          <button
-            class="w-16 h-16 bg-[#E31D2B] rounded-full flex items-center justify-center border-4 border-white shadow-[0_8px_15px_rgba(227,29,43,0.3)] group active:scale-95 transition-transform"
-            data-nav="deposit">
-            <i data-lucide="play" class="w-8 h-8 text-white fill-white ml-1"></i>
-          </button>
-        </div>
-
-        <button class="nav-item-toon flex flex-col items-center justify-center w-1/5 gap-0.5" data-nav="support">
-          <i data-lucide="message-circle" class="w-6 h-6 stroke-[3]"></i>
-          <span class="text-[10px]">CHAT</span>
+        <button
+          class="w-12 h-12 rounded-full bg-gradient-to-r from-[#84fab0] to-[#8fd3f4] flex items-center justify-center shadow-lg -translate-y-4 active:scale-95 transition-transform"
+          data-nav="deposit">
+          <i data-lucide="plus" class="w-6 h-6 text-white"></i>
         </button>
 
-        <button class="nav-item-toon flex flex-col items-center justify-center w-1/5 gap-0.5" data-nav="member">
-          <i data-lucide="smile" class="w-6 h-6 stroke-[3]"></i>
-          <span class="text-[10px]">ME</span>
+        <button class="nav-item-glass flex flex-col items-center justify-center w-12" data-nav="support">
+          <i data-lucide="message-square" class="w-5 h-5"></i>
+        </button>
+
+        <button class="nav-item-glass flex flex-col items-center justify-center w-12" data-nav="member">
+          <i data-lucide="user" class="w-5 h-5"></i>
         </button>
       </nav>
     </div>

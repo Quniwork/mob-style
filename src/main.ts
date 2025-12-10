@@ -86,31 +86,30 @@ const getFilteredGames = (): Game[] => {
 }
 
 
-// Create TRUMP TYCOON GAME CARD
+// Create MASCOT TRUMP GAME CARD
 const createGameCard = (game: Game): string => {
   // Badges (Stamps)
   const badgeHtml = game.isHot
-    ? '<div class="absolute top-2 right-2 bg-[#BF0A30] text-white px-2 py-0.5 border-2 border-white shadow-md transform rotate-3 z-10"><span class="font-heading font-black text-xs">HUGE!</span></div>'
+    ? '<div class="absolute -top-2 -right-2 bg-[#E31D2B] text-white w-10 h-10 rounded-full border-2 border-[#0C2D48] flex items-center justify-center shadow-md z-10 animate-bounce-soft"><i data-lucide="flame" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i></div>'
     : game.isNew
-      ? '<div class="absolute top-2 right-2 bg-[#FFD700] text-[#002868] px-2 py-0.5 border-2 border-white shadow-md transform -rotate-2 z-10"><span class="font-heading font-black text-xs">NO.1</span></div>'
+      ? '<div class="absolute -top-2 -right-2 bg-[#FFD700] text-[#0C2D48] w-10 h-10 rounded-full border-2 border-[#0C2D48] flex items-center justify-center shadow-md z-10"><i data-lucide="star" class="w-5 h-5 fill-white text-white"></i></div>'
       : ''
 
   return `
-    <div class="card-tycoon group h-40 w-full flex flex-col cursor-pointer" data-game-id="${game.id}">
+    <div class="card-chip group h-44 w-full flex flex-col cursor-pointer" data-game-id="${game.id}">
       ${badgeHtml}
       <!-- Image Area -->
-      <div class="h-28 w-full relative overflow-hidden bg-black">
-        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#002868] to-transparent opacity-60"></div>
+      <div class="h-28 w-full relative overflow-hidden bg-[#e0efff]">
+        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1" />
       </div>
       
       <!-- Info Area -->
-      <div class="flex-1 w-full p-2 bg-white flex flex-col justify-between border-t border-[#002868]">
-         <h3 class="text-[#002868] font-heading font-black text-sm truncate uppercase">${game.name}</h3>
-         <div class="flex justify-between items-center">
-            <span class="text-[0.6rem] text-slate-500 font-bold uppercase">${game.provider}</span>
-            <span class="text-[0.6rem] font-black text-[#BF0A30]">WIN NOW &raquo;</span>
+      <div class="flex-1 w-full p-3 bg-white flex flex-col justify-between relative">
+         <div class="absolute -top-4 left-3 w-8 h-8 rounded-full bg-white border-2 border-[#0C2D48] flex items-center justify-center">
+             <i data-lucide="play" class="w-4 h-4 text-[#0C2D48] fill-[#0C2D48]"></i>
          </div>
+         <h3 class="text-[#0C2D48] font-toon font-extrabold text-sm truncate mt-2">${game.name}</h3>
+         <span class="text-[0.65rem] text-slate-400 font-bold uppercase tracking-wide">${game.provider}</span>
       </div>
     </div>
   `
@@ -125,9 +124,9 @@ const renderGames = (): void => {
 
   if (games.length === 0) {
     gamesGrid.innerHTML = `
-      <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center opacity-50">
-        <i data-lucide="frown" class="w-12 h-12 text-[#002868] mb-2"></i>
-        <p class="text-[#002868] font-heading font-bold text-lg">SAD! NO GAMES!</p>
+      <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center opacity-70">
+        <i data-lucide="smile" class="w-16 h-16 text-[#FFD700] mb-2"></i>
+        <p class="text-[#0C2D48] font-bold text-lg">Oops! No games here!</p>
       </div>
     `
     renderIcons()
@@ -137,32 +136,32 @@ const renderGames = (): void => {
   gamesGrid.innerHTML = games.map(createGameCard).join('')
   renderIcons()
 
-  gamesGrid.querySelectorAll('.card-tycoon').forEach(card => {
+  gamesGrid.querySelectorAll('.card-chip').forEach(card => {
     card.addEventListener('click', () => {
       const id = (card as HTMLElement).dataset.gameId
-      console.log('WIN_BIG_GAME:', id)
+      console.log('PLAY_FUN_GAME:', id)
     })
   })
 }
 
-// Initialize category tabs (Trump Style)
+// Initialize category tabs (Fun Style)
 const initCategoryTabs = (): void => {
   const container = document.getElementById('categoryTabs')
   if (!container) return
 
   const categories = [
-    { id: 'slots', icon: 'zap', label: 'SLOTS' },
-    { id: 'fishing', icon: 'anchor', label: 'FISH' },
-    { id: 'poker', icon: 'diamond', label: 'POKER' },
-    { id: 'live', icon: 'video', label: 'LIVE' },
-    { id: 'sports', icon: 'trophy', label: 'SPORTS' },
+    { id: 'slots', icon: 'zap', label: 'Slots' },
+    { id: 'fishing', icon: 'anchor', label: 'Fishing' },
+    { id: 'poker', icon: 'club', label: 'Poker' },
+    { id: 'live', icon: 'video', label: 'Live' },
+    { id: 'sports', icon: 'trophy', label: 'Sports' },
   ]
 
   container.innerHTML = categories.map(cat => `
-    <button class="flex items-center gap-2 px-6 py-3 border-2 border-[#002868] bg-white text-[#002868] shadow-[4px_4px_0_#002868] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_#002868] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all mr-2 whitespace-nowrap group ${currentCategory === cat.id ? 'bg-[#002868] text-[#FFD700] border-[#002868]' : ''}" 
+    <button class="flex items-center gap-1.5 px-4 py-2.5 border-2 border-[#0C2D48] bg-white text-[#0C2D48] rounded-[10px] shadow-[0_3px_0_#0C2D48] active:translate-y-[2px] active:shadow-none transition-all mr-1 whitespace-nowrap group ${currentCategory === cat.id ? 'bg-[#FFD700] border-[#0C2D48]' : ''}" 
       data-id="${cat.id}">
-      <i data-lucide="${cat.icon}" class="w-5 h-5 ${currentCategory === cat.id ? 'text-[#FFD700]' : 'text-[#BF0A30]'}"></i>
-      <span class="text-sm font-heading font-black uppercase tracking-wider">${cat.label}</span>
+      <i data-lucide="${cat.icon}" class="w-4 h-4 ${currentCategory === cat.id ? 'text-[#0C2D48]' : 'text-[#94A3B8] group-hover:text-[#0C2D48]'}"></i>
+      <span class="text-xs font-extrabold uppercase">${cat.label}</span>
     </button>
   `).join('')
 
@@ -194,7 +193,7 @@ const initFilterTabs = (): void => {
   })
 }
 
-// Update Filter Visuals (Trump Bars)
+// Update Filter Visuals (Fun Smiles)
 const updateFilterVisuals = () => {
   const filterTabs = document.getElementById('filterTabs')
   if (!filterTabs) return
@@ -203,10 +202,10 @@ const updateFilterVisuals = () => {
     const filter = (tab as HTMLElement).dataset.filter
     if (filter === currentFilter) {
       // Active State
-      tab.className = 'pb-2 text-sm font-serif font-bold text-[#C41E3A] border-b-2 border-[#C41E3A] transition-colors'
+      tab.className = 'btn-toon text-xs px-4 py-1 shadow-[0_2px_0_#B8860B] active:shadow-none transition-all'
     } else {
       // Inactive State
-      tab.className = 'pb-2 text-sm font-serif text-slate-500 hover:text-[#C41E3A] transition-colors'
+      tab.className = 'px-4 py-1.5 bg-white border-2 border-[#0C2D48] text-[#0C2D48] font-bold rounded-full text-xs shadow-[0_2px_0_#0C2D48] hover:bg-[#FFD700] transition-colors cursor-pointer active:translate-y-[2px] active:shadow-none'
     }
   })
 }

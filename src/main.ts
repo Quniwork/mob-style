@@ -86,35 +86,27 @@ const getFilteredGames = (): Game[] => {
 }
 
 
-// Create AURORA GLASS GAME CARD
+// Create READING APP GAME GRID CARD (Vertical)
 const createGameCard = (game: Game): string => {
-  // Badges (Soft Pills)
-  const badgeHtml = game.isHot
-    ? '<div class="absolute top-2 right-2 px-2 py-0.5 bg-rose-100/80 backdrop-blur-sm text-rose-500 rounded-lg text-[10px] font-bold border border-rose-200 shadow-sm z-10 flex items-center gap-1"><i data-lucide="flame" class="w-3 h-3"></i>HOT</div>'
-    : game.isNew
-      ? '<div class="absolute top-2 right-2 px-2 py-0.5 bg-blue-100/80 backdrop-blur-sm text-blue-500 rounded-lg text-[10px] font-bold border border-blue-200 shadow-sm z-10 flex items-center gap-1"><i data-lucide="sparkles" class="w-3 h-3"></i>NEW</div>'
-      : ''
-
   return `
-    <div class="card-glass group h-48 w-full flex flex-col cursor-pointer relative" data-game-id="${game.id}">
-      ${badgeHtml}
-      <!-- Image Area -->
-      <div class="h-32 w-full relative overflow-hidden">
-        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+    <div class="card-book-grid cursor-pointer group" data-game-id="${game.id}">
+      <!-- Top Image -->
+      <div class="card-book-img">
+         <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+         ${game.isHot ? '<div class="absolute top-2 right-2 bg-[#FF6B6B] px-2 py-0.5 rounded-full text-[10px] text-white font-bold shadow-sm">HOT</div>' : ''}
       </div>
       
-      <!-- Info Area -->
-      <div class="flex-1 w-full p-3 flex flex-col justify-center bg-white/30 backdrop-blur-md">
-         <h3 class="text-slate-700 font-bold text-sm truncate group-hover:text-blue-500 transition-colors">${game.name}</h3>
-         <span class="text-[0.65rem] text-slate-400 font-medium uppercase tracking-wide flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ${game.provider}
-         </span>
+      <!-- Bottom Info -->
+      <div class="card-book-content">
+         <h3 class="text-sm font-extrabold text-[#333] mb-1 truncate">${game.name}</h3>
+         
+         <button class="card-book-btn">Borrow</button>
       </div>
     </div>
   `
 }
 
-// Render games grid
+// Render games list
 const renderGames = (): void => {
   const gamesGrid = document.getElementById('gamesGrid')
   if (!gamesGrid) return
@@ -123,9 +115,8 @@ const renderGames = (): void => {
 
   if (games.length === 0) {
     gamesGrid.innerHTML = `
-      <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center opacity-60">
-        <i data-lucide="cloud-off" class="w-12 h-12 text-slate-300 mb-2"></i>
-        <p class="text-slate-400 font-medium">Nothing found in the clouds...</p>
+      <div class="py-12 text-center opacity-50">
+        <p class="font-bold text-slate-400">No books found...</p>
       </div>
     `
     renderIcons()
@@ -135,59 +126,54 @@ const renderGames = (): void => {
   gamesGrid.innerHTML = games.map(createGameCard).join('')
   renderIcons()
 
-  gamesGrid.querySelectorAll('.card-glass').forEach(card => {
+  gamesGrid.querySelectorAll('.card-book-grid').forEach(card => {
     card.addEventListener('click', () => {
       const id = (card as HTMLElement).dataset.gameId
-      console.log('OPEN_GLASS_GAME:', id)
+      console.log('READ_BOOK_GAME:', id)
     })
   })
 }
 
-// Initialize category tabs (Minimal Glass)
+// Initialize Quick Actions (Simple Grid Logic if needed)
+// ... logic handled in HTML for fixed grid, but we can keep Category logic just in case we need chips later.
+// Initialize Main Categories
 const initCategoryTabs = (): void => {
-  const container = document.getElementById('categoryTabs')
-  if (!container) return
+  const categories = document.getElementById('mainCategories')
+  if (!categories) return
 
-  const categories = [
-    { id: 'slots', icon: 'zap', label: 'Slots' },
-    { id: 'fishing', icon: 'anchor', label: 'Fishing' },
-    { id: 'poker', icon: 'club', label: 'Table' },
-    { id: 'live', icon: 'video', label: 'Live' },
-    { id: 'sports', icon: 'trophy', label: 'Sports' },
-  ]
+  categories.querySelectorAll('.cat-item-main').forEach(item => {
+    item.addEventListener('click', () => {
+      const category = (item as HTMLElement).dataset.category
+      if (category) {
+        currentCategory = category
+        console.log('CATEGORY_SWITCH:', category)
 
-  container.innerHTML = categories.map(cat => `
-    <button class="flex flex-col items-center justify-center min-w-[60px] gap-1 group transition-all ${currentCategory === cat.id ? 'opacity-100' : 'opacity-50 hover:opacity-80'}" 
-      data-id="${cat.id}">
-      <div class="w-12 h-12 rounded-[18px] flex items-center justify-center transition-all ${currentCategory === cat.id ? 'bg-gradient-to-tr from-[#A0C4FF] to-[#BDB2FF] text-white shadow-lg shadow-blue-200' : 'bg-white text-slate-400 border border-slate-100'}">
-        <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
-      </div>
-      <span class="text-[10px] font-bold text-slate-500">${cat.label}</span>
-    </button>
-  `).join('')
+        // Visual Feedback (Simple Animation)
+        item.classList.add('scale-95')
+        setTimeout(() => item.classList.remove('scale-95'), 150)
 
-  renderIcons()
-
-  container.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentCategory = (btn as HTMLElement).dataset.id || 'slots'
-      initCategoryTabs()
-      renderGames()
+        renderGames()
+      }
     })
   })
 }
 
-// Initialize filter tabs
+// Initialize Filter Tabs (Secondary Actions)
 const initFilterTabs = (): void => {
-  const filterTabs = document.getElementById('filterTabs')
-  if (!filterTabs) return
+  const quickActions = document.getElementById('quickActions')
+  if (!quickActions) return
 
-  filterTabs.querySelectorAll('button').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const filter = (tab as HTMLElement).dataset.filter
-      if (filter) {
-        currentFilter = filter
-        updateFilterVisuals()
+  quickActions.querySelectorAll('.action-pill').forEach(item => {
+    item.addEventListener('click', () => {
+      const action = (item as HTMLElement).dataset.action
+      console.log('QUICK_ACTION:', action)
+
+      // Visual Update
+      quickActions.querySelectorAll('.action-pill').forEach(p => p.classList.remove('active'))
+      item.classList.add('active')
+
+      if (action === 'all' || action === 'hot') {
+        currentFilter = action
         renderGames()
       }
     })

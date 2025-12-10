@@ -3,144 +3,176 @@
 @tailwind utilities;
 
 /* 
-  ORIENTAL INK THEME (New Chinese Style)
-  --------------------------------------
-  Concept: Sophisticated, Traditional, Ink, Gold, Paper.
+  TRUMP / TYCOON THEME
+  --------------------
+  Concept: BIG, BOLD, GOLD. Presidential Navy, Power Red, Luxury Gold.
 */
 
 :root {
-  /* Color Palette: Ink Wash Landscape */
-  --ink-bg: #F9F7F2;
-  /* Rice Paper */
-  --ink-surface: #FFFFFF;
-  --ink-surface-2: #F0EEE9;
+  /* Pattern */
+  --usa-navy: #002868;
+  --usa-red: #BF0A30;
+  --usa-white: #FFFFFF;
 
-  /* Primary */
-  --ink-primary: #C41E3A;
-  /* Vermilion Red (Seal Color) */
-  --ink-secondary: #2C2C2C;
-  /* Ink Black */
+  /* LUXURY GOLD (Real Gold) */
+  --tycoon-gold: #FFD700;
+  --tycoon-gold-dark: #B8860B;
+  --tycoon-gold-light: #FFF8DC;
 
-  /* Accent */
-  --ink-gold: #D4AF37;
-  /* Champagne Gold */
-  --ink-jade: #E0F0E9;
-  /* Pale Jade */
+  /* Backgrounds */
+  --bg-executive: #0A192F;
+  /* Deep Navy Executive */
+  --bg-surface: #FFFFFF;
 
-  /* Functional Colors */
-  --text-primary: #1A1A1A;
-  --text-secondary: #585858;
+  /* Text */
+  --text-primary: #002868;
+  --text-inverse: #FFFFFF;
   --text-gold: #B8860B;
 
   /* Effects */
-  --shadow-paper: 0 4px 20px rgba(44, 44, 44, 0.08);
-  --shadow-gold: 0 4px 15px rgba(212, 175, 55, 0.2);
-  --border-wash: 1px solid rgba(44, 44, 44, 0.08);
-  /* Subtle ink wash border */
+  --shadow-gold: 0 4px 0 #B8860B;
+  /* Hard block shadow */
+  --shadow-power: 0 10px 20px rgba(0, 40, 104, 0.4);
 
-  /* Fonts */
-  --font-serif: 'Noto Serif TC', 'Songti SC', serif;
-  --font-sans: 'Noto Sans TC', sans-serif;
+  /* Borders */
+  --border-gold: 2px solid #FFD700;
+  --border-block: 2px solid #002868;
+
+  /* Fonts (Simulated via sans-serif stack for now, targeting Impact feel) */
+  --font-heading: 'Impact', 'Anton', 'Arial Black', sans-serif;
+  --font-body: 'Franklin Gothic Medium', 'Arial Narrow', sans-serif;
 }
 
-/* Base Reset & Typography */
 body {
-  background-color: var(--ink-bg);
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-color: var(--bg-surface);
   color: var(--text-primary);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-body);
 }
 
 h1,
 h2,
 h3,
-h4 {
-  font-family: var(--font-serif);
-  font-weight: 700;
+h4,
+.font-heading {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* Component: Gold Button */
-.btn-gold {
+/* COMPONENT: THE WINNER BUTTON */
+.btn-winner {
+  background: linear-gradient(180deg, #FFD700 0%, #E5C100 100%);
+  color: #002868;
+  border: 2px solid #B8860B;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 4px 0 #B8860B, 0 5px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+  transition: all 0.1s;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.btn-winner:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #B8860B, inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-winner-red {
+  background: linear-gradient(180deg, #BF0A30 0%, #8B0000 100%);
+  color: #FFFFFF;
+  border: 2px solid #500000;
+  box-shadow: 0 4px 0 #500000;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.btn-winner-red:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #500000;
+}
+
+/* COMPONENT: GOLD CARD */
+.card-tycoon {
+  background: white;
+  border: 2px solid #002868;
+  border-radius: 0;
+  /* Sharp corners */
   position: relative;
-  background: linear-gradient(135deg, #E5C56C 0%, #D4AF37 100%);
-  color: #fff;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 4px;
-  /* Slight rounded for traditional feel */
-  font-family: var(--font-serif);
-  font-weight: 600;
-  box-shadow: var(--shadow-gold);
-  transition: all 0.3s ease;
+  transition: all 0.2s;
+  box-shadow: 6px 6px 0 #002868;
+}
+
+.card-tycoon:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 #FFD700;
+  border-color: #BF0A30;
+  z-index: 10;
+}
+
+/* COMPONENT: NAV BAR (THE DESK) */
+.nav-desk {
+  background: #002868;
+  border-top: 4px solid #FFD700;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-item-tycoon {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.nav-item-tycoon.active {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transform: scale(1.1);
+}
+
+/* UTILS */
+.text-patriot-blue {
+  color: var(--usa-navy);
+}
+
+.text-patriot-red {
+  color: var(--usa-red);
+}
+
+.bg-patriot-blue {
+  background-color: var(--usa-navy);
+}
+
+.border-gold {
+  border: var(--border-gold);
+}
+
+/* Animation: Shine */
+@keyframes gold-sheen {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.shine-effect {
+  position: relative;
   overflow: hidden;
 }
 
-.btn-gold:active {
-  transform: scale(0.98);
-}
-
-.btn-gold::after {
+.shine-effect::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 50%;
   height: 100%;
-  background: linear-gradient(rgba(255, 255, 255, 0.4), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn-gold:hover::after {
-  opacity: 1;
-}
-
-/* Component: Ink Card */
-.card-ink {
-  background: var(--ink-surface);
-  border-radius: 8px;
-  border: var(--border-wash);
-  box-shadow: var(--shadow-paper);
-  transition: all 0.3s ease;
-  overflow: hidden;
-  position: relative;
-}
-
-.card-ink:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(44, 44, 44, 0.12);
-  border-color: var(--ink-gold);
-}
-
-/* Navigation: Porcelain Bar */
-.nav-porcelain {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.03);
-}
-
-.nav-item-ink {
-  color: #999;
-  transition: all 0.3s ease;
-}
-
-.nav-item-ink.active {
-  color: var(--ink-primary);
-}
-
-.nav-item-ink.active i {
-  /* Mimic Ink Drop */
-  filter: drop-shadow(0 4px 6px rgba(196, 30, 58, 0.2));
-  transform: scale(1.1);
-}
-
-/* Special Utility: Vertical Text */
-.writing-v {
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  letter-spacing: 0.2em;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transform: translateX(-120%) skewX(-15deg);
+  animation: gold-sheen 3s infinite;
 }
 
 /* Mobile Utilities */

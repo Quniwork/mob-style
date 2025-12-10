@@ -86,31 +86,32 @@ const getFilteredGames = (): Game[] => {
 }
 
 
-// Create ORIENTAL GAME CARD
+// Create TRUMP TYCOON GAME CARD
 const createGameCard = (game: Game): string => {
-  // Badges (Seals)
+  // Badges (Stamps)
   const badgeHtml = game.isHot
-    ? '<div class="absolute -top-1 -right-1 w-8 h-8 bg-red-800 text-white rounded-full flex items-center justify-center border-2 border-[#F9F7F2] shadow-sm z-10"><span class="font-serif font-bold text-xs">熱</span></div>'
+    ? '<div class="absolute top-2 right-2 bg-[#BF0A30] text-white px-2 py-0.5 border-2 border-white shadow-md transform rotate-3 z-10"><span class="font-heading font-black text-xs">HUGE!</span></div>'
     : game.isNew
-      ? '<div class="absolute -top-1 -right-1 w-8 h-8 bg-[#B8860B] text-white rounded-full flex items-center justify-center border-2 border-[#F9F7F2] shadow-sm z-10"><span class="font-serif font-bold text-xs">新</span></div>'
+      ? '<div class="absolute top-2 right-2 bg-[#FFD700] text-[#002868] px-2 py-0.5 border-2 border-white shadow-md transform -rotate-2 z-10"><span class="font-heading font-black text-xs">NO.1</span></div>'
       : ''
 
   return `
-    <div class="card-ink group h-36 w-full flex flex-col relative" data-game-id="${game.id}">
+    <div class="card-tycoon group h-40 w-full flex flex-col cursor-pointer" data-game-id="${game.id}">
       ${badgeHtml}
       <!-- Image Area -->
-      <div class="h-24 w-full relative overflow-hidden">
-        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+      <div class="h-28 w-full relative overflow-hidden bg-black">
+        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#002868] to-transparent opacity-60"></div>
       </div>
       
       <!-- Info Area -->
-      <div class="h-12 w-full p-2 bg-white flex flex-col justify-center">
-         <h3 class="text-slate-800 font-serif font-bold text-sm truncate">${game.name}</h3>
-         <span class="text-[10px] text-slate-400 font-serif uppercase tracking-wider">${game.provider}</span>
+      <div class="flex-1 w-full p-2 bg-white flex flex-col justify-between border-t border-[#002868]">
+         <h3 class="text-[#002868] font-heading font-black text-sm truncate uppercase">${game.name}</h3>
+         <div class="flex justify-between items-center">
+            <span class="text-[0.6rem] text-slate-500 font-bold uppercase">${game.provider}</span>
+            <span class="text-[0.6rem] font-black text-[#BF0A30]">WIN NOW &raquo;</span>
+         </div>
       </div>
-      
-      <!-- Hover Border Overlay -->
-      <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#C41E3A]/50 rounded-lg pointer-events-none transition-colors"></div>
     </div>
   `
 }
@@ -125,8 +126,8 @@ const renderGames = (): void => {
   if (games.length === 0) {
     gamesGrid.innerHTML = `
       <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center opacity-50">
-        <i data-lucide="bird" class="w-10 h-10 text-slate-400 mb-2"></i>
-        <p class="text-slate-500 font-serif text-sm">暫無內容</p>
+        <i data-lucide="frown" class="w-12 h-12 text-[#002868] mb-2"></i>
+        <p class="text-[#002868] font-heading font-bold text-lg">SAD! NO GAMES!</p>
       </div>
     `
     renderIcons()
@@ -136,34 +137,32 @@ const renderGames = (): void => {
   gamesGrid.innerHTML = games.map(createGameCard).join('')
   renderIcons()
 
-  gamesGrid.querySelectorAll('.card-ink').forEach(card => {
+  gamesGrid.querySelectorAll('.card-tycoon').forEach(card => {
     card.addEventListener('click', () => {
       const id = (card as HTMLElement).dataset.gameId
-      console.log('INIT_GAME:', id)
+      console.log('WIN_BIG_GAME:', id)
     })
   })
 }
 
-// Initialize category tabs (Oriental Style)
+// Initialize category tabs (Trump Style)
 const initCategoryTabs = (): void => {
   const container = document.getElementById('categoryTabs')
   if (!container) return
 
   const categories = [
-    { id: 'slots', icon: 'zap', label: '電子' }, // Icon placeholder, usually custom for oriental
-    { id: 'fishing', icon: 'fish', label: '捕魚' },
-    { id: 'poker', icon: 'spade', label: '棋牌' },
-    { id: 'live', icon: 'video', label: '真人' },
-    { id: 'sports', icon: 'trophy', label: '體育' },
+    { id: 'slots', icon: 'zap', label: 'SLOTS' },
+    { id: 'fishing', icon: 'anchor', label: 'FISH' },
+    { id: 'poker', icon: 'diamond', label: 'POKER' },
+    { id: 'live', icon: 'video', label: 'LIVE' },
+    { id: 'sports', icon: 'trophy', label: 'SPORTS' },
   ]
 
   container.innerHTML = categories.map(cat => `
-    <button class="flex flex-col items-center justify-center min-w-[3.5rem] gap-2 py-2 group" 
+    <button class="flex items-center gap-2 px-6 py-3 border-2 border-[#002868] bg-white text-[#002868] shadow-[4px_4px_0_#002868] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[3px_3px_0_#002868] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all mr-2 whitespace-nowrap group ${currentCategory === cat.id ? 'bg-[#002868] text-[#FFD700] border-[#002868]' : ''}" 
       data-id="${cat.id}">
-      <div class="w-12 h-12 rounded-full border border-[#E5E0D5] flex items-center justify-center bg-white transition-all duration-300 ${currentCategory === cat.id ? 'border-[#C41E3A] shadow-md scale-105' : 'group-hover:border-slate-300'}">
-        <i data-lucide="${cat.icon}" class="w-5 h-5 ${currentCategory === cat.id ? 'text-[#C41E3A]' : 'text-slate-400'}"></i>
-      </div>
-      <span class="text-xs font-serif ${currentCategory === cat.id ? 'text-[#C41E3A] font-bold' : 'text-slate-500'}">${cat.label}</span>
+      <i data-lucide="${cat.icon}" class="w-5 h-5 ${currentCategory === cat.id ? 'text-[#FFD700]' : 'text-[#BF0A30]'}"></i>
+      <span class="text-sm font-heading font-black uppercase tracking-wider">${cat.label}</span>
     </button>
   `).join('')
 
@@ -195,7 +194,7 @@ const initFilterTabs = (): void => {
   })
 }
 
-// Update Filter Visuals (Oriental Tabs)
+// Update Filter Visuals (Trump Bars)
 const updateFilterVisuals = () => {
   const filterTabs = document.getElementById('filterTabs')
   if (!filterTabs) return

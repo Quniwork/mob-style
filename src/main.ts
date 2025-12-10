@@ -86,32 +86,31 @@ const getFilteredGames = (): Game[] => {
 }
 
 
-// Create CYBER GAME CARD
+// Create ORIENTAL GAME CARD
 const createGameCard = (game: Game): string => {
-  // Badges (Neon Tags)
+  // Badges (Seals)
   const badgeHtml = game.isHot
-    ? '<div class="absolute top-0 right-0 px-2 py-0.5 bg-pink-600 text-white text-[9px] font-mono font-bold z-10 border-l border-b border-black">HOT</div>'
+    ? '<div class="absolute -top-1 -right-1 w-8 h-8 bg-red-800 text-white rounded-full flex items-center justify-center border-2 border-[#F9F7F2] shadow-sm z-10"><span class="font-serif font-bold text-xs">熱</span></div>'
     : game.isNew
-      ? '<div class="absolute top-0 right-0 px-2 py-0.5 bg-cyan-600 text-black text-[9px] font-mono font-bold z-10 border-l border-b border-black">NEW</div>'
+      ? '<div class="absolute -top-1 -right-1 w-8 h-8 bg-[#B8860B] text-white rounded-full flex items-center justify-center border-2 border-[#F9F7F2] shadow-sm z-10"><span class="font-serif font-bold text-xs">新</span></div>'
       : ''
 
   return `
-    <div class="card-tech group h-32 w-full flex flex-col justify-end relative" data-game-id="${game.id}">
+    <div class="card-ink group h-36 w-full flex flex-col relative" data-game-id="${game.id}">
       ${badgeHtml}
-      <!-- Image Background -->
-      <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
-      
-      <!-- Gradient Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-      
-      <!-- Tech Overlay Content -->
-      <div class="relative z-10 p-2 border-t border-white/10 bg-black/60 backdrop-blur-sm">
-         <h3 class="text-cyan-400 font-bold text-xs truncate font-mono">${game.name}</h3>
-         <div class="flex items-center justify-between mt-1">
-           <span class="text-[9px] text-pink-500 uppercase tracking-tight">${game.provider}</span>
-           <i data-lucide="play-circle" class="w-3 h-3 text-white/50 group-hover:text-neon-cyan transition-colors"></i>
-         </div>
+      <!-- Image Area -->
+      <div class="h-24 w-full relative overflow-hidden">
+        <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
       </div>
+      
+      <!-- Info Area -->
+      <div class="h-12 w-full p-2 bg-white flex flex-col justify-center">
+         <h3 class="text-slate-800 font-serif font-bold text-sm truncate">${game.name}</h3>
+         <span class="text-[10px] text-slate-400 font-serif uppercase tracking-wider">${game.provider}</span>
+      </div>
+      
+      <!-- Hover Border Overlay -->
+      <div class="absolute inset-0 border-2 border-transparent group-hover:border-[#C41E3A]/50 rounded-lg pointer-events-none transition-colors"></div>
     </div>
   `
 }
@@ -125,9 +124,9 @@ const renderGames = (): void => {
 
   if (games.length === 0) {
     gamesGrid.innerHTML = `
-      <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center border border-dashed border-white/10 rounded">
-        <i data-lucide="alert-triangle" class="w-8 h-8 text-pink-500 mb-2 animate-pulse"></i>
-        <p class="text-cyan-800 font-mono text-xs">NO_DATA_FOUND</p>
+      <div class="col-span-2 text-center py-20 flex flex-col items-center justify-center opacity-50">
+        <i data-lucide="bird" class="w-10 h-10 text-slate-400 mb-2"></i>
+        <p class="text-slate-500 font-serif text-sm">暫無內容</p>
       </div>
     `
     renderIcons()
@@ -137,8 +136,7 @@ const renderGames = (): void => {
   gamesGrid.innerHTML = games.map(createGameCard).join('')
   renderIcons()
 
-  // Re-attach listeners (simplified for brevity)
-  gamesGrid.querySelectorAll('.card-tech').forEach(card => {
+  gamesGrid.querySelectorAll('.card-ink').forEach(card => {
     card.addEventListener('click', () => {
       const id = (card as HTMLElement).dataset.gameId
       console.log('INIT_GAME:', id)
@@ -146,24 +144,26 @@ const renderGames = (): void => {
   })
 }
 
-// Initialize category tabs (Cyberpunk Style)
+// Initialize category tabs (Oriental Style)
 const initCategoryTabs = (): void => {
   const container = document.getElementById('categoryTabs')
   if (!container) return
 
   const categories = [
-    { id: 'slots', icon: 'zap', label: 'SLOTS' },
-    { id: 'fishing', icon: 'anchor', label: 'FISH' },
-    { id: 'poker', icon: 'diamond', label: 'POKER' },
-    { id: 'live', icon: 'video', label: 'LIVE' },
-    { id: 'sports', icon: 'trophy', label: 'SPORT' },
+    { id: 'slots', icon: 'zap', label: '電子' }, // Icon placeholder, usually custom for oriental
+    { id: 'fishing', icon: 'fish', label: '捕魚' },
+    { id: 'poker', icon: 'spade', label: '棋牌' },
+    { id: 'live', icon: 'video', label: '真人' },
+    { id: 'sports', icon: 'trophy', label: '體育' },
   ]
 
   container.innerHTML = categories.map(cat => `
-    <button class="flex flex-col items-center justify-center min-w-[4rem] h-16 bg-white/5 border border-white/10 rounded-sm hover:border-cyan-500/50 transition-colors ${currentCategory === cat.id ? 'border-cyan-500 bg-cyan-950/30' : ''}" 
+    <button class="flex flex-col items-center justify-center min-w-[3.5rem] gap-2 py-2 group" 
       data-id="${cat.id}">
-      <i data-lucide="${cat.icon}" class="w-5 h-5 mb-1 ${currentCategory === cat.id ? 'text-neon-cyan' : 'text-slate-500'}"></i>
-      <span class="text-[9px] font-mono font-bold ${currentCategory === cat.id ? 'text-white' : 'text-slate-500'}">${cat.label}</span>
+      <div class="w-12 h-12 rounded-full border border-[#E5E0D5] flex items-center justify-center bg-white transition-all duration-300 ${currentCategory === cat.id ? 'border-[#C41E3A] shadow-md scale-105' : 'group-hover:border-slate-300'}">
+        <i data-lucide="${cat.icon}" class="w-5 h-5 ${currentCategory === cat.id ? 'text-[#C41E3A]' : 'text-slate-400'}"></i>
+      </div>
+      <span class="text-xs font-serif ${currentCategory === cat.id ? 'text-[#C41E3A] font-bold' : 'text-slate-500'}">${cat.label}</span>
     </button>
   `).join('')
 
@@ -172,7 +172,7 @@ const initCategoryTabs = (): void => {
   container.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
       currentCategory = (btn as HTMLElement).dataset.id || 'slots'
-      initCategoryTabs() // Re-render to update active class easily
+      initCategoryTabs()
       renderGames()
     })
   })
@@ -195,7 +195,7 @@ const initFilterTabs = (): void => {
   })
 }
 
-// Update Filter Visuals
+// Update Filter Visuals (Oriental Tabs)
 const updateFilterVisuals = () => {
   const filterTabs = document.getElementById('filterTabs')
   if (!filterTabs) return
@@ -203,11 +203,11 @@ const updateFilterVisuals = () => {
   filterTabs.querySelectorAll('button').forEach(tab => {
     const filter = (tab as HTMLElement).dataset.filter
     if (filter === currentFilter) {
-      // Active State (Cyberpunk)
-      tab.className = 'px-4 py-1.5 rounded-none border border-cyan-500 bg-cyan-500/20 text-cyan-300 text-xs font-mono font-bold transition-all shadow-[0_0_10px_rgba(0,243,255,0.4)]'
+      // Active State
+      tab.className = 'pb-2 text-sm font-serif font-bold text-[#C41E3A] border-b-2 border-[#C41E3A] transition-colors'
     } else {
       // Inactive State
-      tab.className = 'px-4 py-1.5 rounded-none border border-white/10 text-slate-400 text-xs font-mono hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center gap-1'
+      tab.className = 'pb-2 text-sm font-serif text-slate-500 hover:text-[#C41E3A] transition-colors'
     }
   })
 }

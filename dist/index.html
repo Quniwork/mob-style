@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="description" content="川爺娛樂城 - 最頂級的線上遊戲平台" />
+  <meta name="theme-color" content="#020617" />
+  <title>川爺娛樂城 | 頂級線上遊戲平台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Removed FontAwesome, using Lucide via JS -->
+  <script type="module" crossorigin src="/assets/index-5f9c7fef.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-418da163.js">
+  <link rel="stylesheet" href="/assets/index-0d9ec5b1.css">
+</head>
+
+<body class="font-sans antialiased text-slate-50 selection:bg-[#FFD700] selection:text-slate-900">
+  <div id="app" class="min-h-screen flex flex-col bg-neon-bg text-white pb-safe">
+
+    <!-- HUD Header (Fixed Top) -->
+    <header class="fixed top-0 left-0 right-0 z-50 px-4 py-3 pt-safe">
+      <div class="glass-tech flex items-center justify-between px-4 py-2 border-b border-cyan-500/20 w-full"
+        style="clip-path: polygon(0 0, 100% 0, 100% 80%, 95% 100%, 0 100%);">
+        <!-- Logo -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 flex items-center justify-center bg-cyan-950/50 border border-cyan-500/50 rounded-sm">
+            <i data-lucide="zap" class="w-5 h-5 text-neon-cyan animate-pulse"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xs font-bold text-neon-cyan tracking-[0.2em]">CYBER</span>
+            <span class="text-[10px] text-pink-500 font-bold tracking-widest">CASINO</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <div class="hidden md:flex items-center gap-2 px-3 py-1 bg-black/40 border border-pink-500/30 rounded-sm">
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-bounce"></span>
+            <span class="text-[10px] text-pink-300 font-mono">SYS.ONLINE</span>
+          </div>
+          <button class="btn-cyber px-4 py-1 text-xs">LOGIN</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content (Scrollable) -->
+    <main class="flex-1 w-full pt-28 pb-32 px-4 overflow-y-auto no-scrollbar">
+
+      <!-- Hero Banner -->
+      <div class="relative w-full h-48 mb-8 group overflow-hidden border border-pink-500/20 bg-pink-900/5 rounded-lg">
+        <div
+          class="absolute inset-0 bg-[url('https://picsum.photos/seed/cyber/600/300')] bg-cover bg-center opacity-40 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black"></div>
+        <div class="absolute bottom-4 left-4 z-10">
+          <div
+            class="inline-block px-2 py-0.5 bg-yellow-400 text-black text-[10px] font-bold mb-2 transform -skew-x-12">
+            NEW_EVENT</div>
+          <h2 class="text-2xl font-black italic text-white mb-1 uppercase drop-shadow-[0_0_5px_rgba(255,0,255,0.8)]">
+            Neon Nights</h2>
+          <p class="text-cyan-300 text-xs font-mono">>> JACKPOT_PROTOCOL_INITIATED</p>
+        </div>
+        <div
+          class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none">
+        </div>
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="flex overflow-x-auto gap-3 mb-6 pb-2 no-scrollbar" id="categoryTabs">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Filter Tags (Unified Style) -->
+      <div class="flex gap-2 overflow-x-auto mb-4 scrollbar-hide" id="filterTabs">
+        <button
+          class="px-4 py-1.5 rounded-none border border-cyan-500 bg-cyan-500/20 text-cyan-300 text-xs font-mono font-bold hover:bg-cyan-500 hover:text-black transition-colors"
+          data-filter="all">ALL_GAMES</button>
+        <button
+          class="px-4 py-1.5 rounded-none border border-white/10 text-slate-400 text-xs font-mono hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center gap-1"
+          data-filter="hot"><i data-lucide="flame" class="w-3 h-3"></i> HOT</button>
+        <button
+          class="px-4 py-1.5 rounded-none border border-white/10 text-slate-400 text-xs font-mono hover:border-cyan-500 hover:text-cyan-500 transition-colors flex items-center gap-1"
+          data-filter="new"><i data-lucide="sparkles" class="w-3 h-3"></i> NEW</button>
+      </div>
+
+      <!-- Data Grid -->
+      <div class="grid grid-cols-2 gap-3" id="gamesGrid">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Load More -->
+      <div class="mt-8 text-center pb-8">
+        <button class="btn-cyber-pink px-6 py-2 text-xs mx-auto flex items-center gap-2" id="loadMoreBtn">
+          <span>LOAD_MORE_DATA</span>
+          <i data-lucide="chevrons-down" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </main>
+
+    <!-- Floating Island Nav (Fixed Bottom) -->
+    <div class="fixed bottom-6 left-4 right-4 z-50">
+      <nav class="nav-island flex items-center justify-around h-16 px-2">
+        <!-- Home -->
+        <button class="nav-item-cyber active flex flex-col items-center justify-center w-12 gap-1" data-nav="home">
+          <i data-lucide="home" class="w-5 h-5"></i>
+          <span class="text-[9px] font-mono tracking-wider">HOME</span>
+        </button>
+
+        <!-- Promo -->
+        <button class="nav-item-cyber flex flex-col items-center justify-center w-12 gap-1" data-nav="promo">
+          <i data-lucide="cpu" class="w-5 h-5"></i>
+          <span class="text-[9px] font-mono tracking-wider">PROMO</span>
+        </button>
+
+        <!-- Center Action (Deposit/Play) -->
+        <div class="relative -top-6">
+          <button
+            class="w-14 h-14 bg-black text-neon-cyan rounded-lg flex items-center justify-center transform rotate-45 border-2 border-neon-cyan shadow-[0_0_20px_rgba(0,243,255,0.6)] group hover:scale-110 transition-transform btn-cyber-pulse"
+            data-nav="deposit">
+            <i data-lucide="zap" class="w-6 h-6 transform -rotate-45 group-hover:animate-pulse"></i>
+          </button>
+        </div>
+
+        <!-- Support -->
+        <button class="nav-item-cyber flex flex-col items-center justify-center w-12 gap-1" data-nav="support">
+          <i data-lucide="mic-2" class="w-5 h-5"></i>
+          <span class="text-[9px] font-mono tracking-wider">COMM</span>
+        </button>
+
+        <!-- Member -->
+        <button class="nav-item-cyber flex flex-col items-center justify-center w-12 gap-1" data-nav="member">
+          <i data-lucide="user-square" class="w-5 h-5"></i>
+          <span class="text-[9px] font-mono tracking-wider">ID</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  
+</body>
+
+</html>

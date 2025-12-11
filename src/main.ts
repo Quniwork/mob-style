@@ -1,257 +1,233 @@
 import './index.css'
 import { renderIcons } from './icons'
 
-// Type Definitions
-interface Game {
-  id: string
+// API Interfaces
+interface ApiGame {
+  id: number
   name: string
-  provider: string
-  category: 'slots' | 'fishing' | 'poker' | 'live' | 'sports'
-  imageUrl: string
-  isHot: boolean
-  isNew: boolean
-  isFavorite: boolean
+  code: string
+  status: number
+  game_types_code: string
+  game_platforms_code: string
+  favorite_game: number
+  img_code: string
+  img_url: string
 }
-
-// Game Data
-const gamesData: Game[] = [
-  // Slots Games
-  { id: 's1', name: '財神到', provider: 'PG Soft', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot1/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 's2', name: '麻將胡了', provider: 'PG Soft', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot2/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 's3', name: '龍虎爭霸', provider: 'JILI', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot3/400/400', isHot: false, isNew: true, isFavorite: false },
-  { id: 's4', name: '招財貓', provider: 'Pragmatic', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot4/400/400', isHot: false, isNew: false, isFavorite: false },
-  { id: 's5', name: '金龍獻瑞', provider: 'PG Soft', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot5/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 's6', name: '幸運七', provider: 'JILI', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot6/400/400', isHot: false, isNew: true, isFavorite: false },
-  { id: 's7', name: '寶石傳奇', provider: 'Pragmatic', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot7/400/400', isHot: false, isNew: false, isFavorite: false },
-  { id: 's8', name: '大富翁', provider: 'PG Soft', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot8/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 's9', name: '花開富貴', provider: 'JILI', category: 'slots', imageUrl: 'https://picsum.photos/seed/slot9/400/400', isHot: false, isNew: true, isFavorite: false },
-
-  // Fishing Games
-  { id: 'f1', name: '捕魚達人', provider: 'JILI', category: 'fishing', imageUrl: 'https://picsum.photos/seed/fish1/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'f2', name: '深海獵人', provider: 'PG Soft', category: 'fishing', imageUrl: 'https://picsum.photos/seed/fish2/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'f3', name: '海王捕魚', provider: 'FC', category: 'fishing', imageUrl: 'https://picsum.photos/seed/fish3/400/400', isHot: false, isNew: true, isFavorite: false },
-  { id: 'f4', name: '黃金捕魚', provider: 'JILI', category: 'fishing', imageUrl: 'https://picsum.photos/seed/fish4/400/400', isHot: false, isNew: false, isFavorite: false },
-  { id: 'f5', name: '龍王捕魚', provider: 'PG Soft', category: 'fishing', imageUrl: 'https://picsum.photos/seed/fish5/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'f6', name: '3D 捕魚王', provider: 'FC', category: 'fishing', imageUrl: 'https://picsum.photos/seed/fish6/400/400', isHot: false, isNew: true, isFavorite: false },
-
-  // Poker Games
-  { id: 'p1', name: '德州撲克', provider: 'KA Gaming', category: 'poker', imageUrl: 'https://picsum.photos/seed/poker1/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'p2', name: '21點', provider: 'Evolution', category: 'poker', imageUrl: 'https://picsum.photos/seed/poker2/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'p3', name: '百家樂', provider: 'SA Gaming', category: 'poker', imageUrl: 'https://picsum.photos/seed/poker3/400/400', isHot: true, isNew: false, isFavorite: false },
-
-  // Live Games
-  { id: 'l1', name: '真人百家樂', provider: 'Evolution', category: 'live', imageUrl: 'https://picsum.photos/seed/live1/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'l2', name: '真人輪盤', provider: 'Evolution', category: 'live', imageUrl: 'https://picsum.photos/seed/live2/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'l3', name: '真人龍虎', provider: 'SA Gaming', category: 'live', imageUrl: 'https://picsum.photos/seed/live3/400/400', isHot: false, isNew: true, isFavorite: false },
-
-  // Sports
-  { id: 'sp1', name: '足球競彩', provider: 'CMD', category: 'sports', imageUrl: 'https://picsum.photos/seed/sports1/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'sp2', name: '籃球投注', provider: 'CMD', category: 'sports', imageUrl: 'https://picsum.photos/seed/sports2/400/400', isHot: true, isNew: false, isFavorite: false },
-  { id: 'sp3', name: '電競賽事', provider: 'IM', category: 'sports', imageUrl: 'https://picsum.photos/seed/sports3/400/400', isHot: false, isNew: true, isFavorite: false },
-]
 
 // State
-let currentCategory: string = 'slots'
+let currentCategory: string = 'slot'
 let currentFilter: string = 'all'
-let favorites: Set<string> = new Set()
+let gamesData: ApiGame[] = []
 
-// Load favorites from localStorage
-const loadFavorites = (): void => {
-  const saved = localStorage.getItem('favorites')
-  if (saved) {
-    favorites = new Set(JSON.parse(saved))
-    gamesData.forEach(game => {
-      game.isFavorite = favorites.has(game.id)
-    })
+
+const IMAGE_BASE_URL = 'https://apx.111ya.cc'
+
+// Type Mapping (HTML data-category -> API type)
+const TYPE_MAPPING: Record<string, string> = {
+  'slots': 'slot',
+  'fishing': 'fish',
+  'poker': 'poker',
+  'live': 'live',
+  'sports': 'sport'
+}
+
+// Fetch Games from API
+const fetchGames = async (type: string = 'slot', page: number = 1): Promise<void> => {
+  renderLoadingState()
+
+  try {
+    const response = await fetch(`/api/games/list?type=${type}&page=${page}`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const result = await response.json()
+
+    // Handle response structure
+    if (result.data && Array.isArray(result.data.data)) {
+      gamesData = result.data.data // Laravel pagination
+    } else if (result.data && Array.isArray(result.data)) {
+      gamesData = result.data
+    } else if (Array.isArray(result)) {
+      gamesData = result
+    } else {
+      console.warn('Unexpected API response format, checking custom paths...')
+      // Fallback or debug
+      gamesData = []
+    }
+
+    renderGames()
+  } catch (error) {
+    console.error('Error fetching games:', error)
+    renderErrorState()
   }
 }
 
-// Filter games based on current state
-const getFilteredGames = (): Game[] => {
-  let games = gamesData.filter(game => game.category === currentCategory)
+// Create Game Card HTML
+const createGameCard = (game: ApiGame): string => {
+  const fullImgUrl = `${IMAGE_BASE_URL}${game.img_url}`
 
-  switch (currentFilter) {
-    case 'hot':
-      games = games.filter(game => game.isHot)
-      break
-    case 'new':
-      games = games.filter(game => game.isNew)
-      break
-    case 'favorite':
-      games = games.filter(game => favorites.has(game.id))
-      break
-  }
-
-  return games
-}
-
-
-// Create READING APP GAME GRID CARD (Vertical)
-const createGameCard = (game: Game): string => {
   return `
     <div class="card-book-grid cursor-pointer group" data-game-id="${game.id}">
       <!-- Top Image -->
       <div class="card-book-img">
-         <img src="${game.imageUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-         ${game.isHot ? '<div class="absolute top-2 right-2 bg-[#FF6B6B] px-2 py-0.5 rounded-full text-[10px] text-white font-bold shadow-sm">HOT</div>' : ''}
+         <img src="${fullImgUrl}" alt="${game.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+         ${game.favorite_game > 100 ? '<div class="absolute top-2 right-2 bg-[#FF6B6B] px-2 py-0.5 rounded-full text-[10px] text-white font-bold shadow-sm">HOT</div>' : ''}
       </div>
       
       <!-- Bottom Info -->
       <div class="card-book-content">
          <h3 class="text-sm font-extrabold text-[#333] mb-1 truncate">${game.name}</h3>
-         
-         <button class="card-book-btn">Borrow</button>
+         <button class="card-book-btn">Start</button>
       </div>
     </div>
   `
 }
 
-// Render games list
+const renderLoadingState = (): void => {
+  const gamesGrid = document.getElementById('gamesGrid')
+  if (!gamesGrid) return
+
+  gamesGrid.innerHTML = `
+    <div class="col-span-2 py-12 flex justify-center items-center">
+       <i data-lucide="loader-2" class="animate-spin w-8 h-8 text-[#FFD700]"></i>
+    </div>
+  `
+  renderIcons()
+}
+
+const renderErrorState = (): void => {
+  const gamesGrid = document.getElementById('gamesGrid')
+  if (!gamesGrid) return
+
+  gamesGrid.innerHTML = `
+    <div class="col-span-2 py-12 text-center">
+       <p class="text-red-400 font-bold mb-2">Failed to load games</p>
+       <button id="retryBtn" class="px-4 py-2 bg-slate-800 rounded-full text-xs font-bold text-white">Retry</button>
+    </div>
+  `
+  document.getElementById('retryBtn')?.addEventListener('click', () => fetchGames(currentCategory))
+}
+
 const renderGames = (): void => {
   const gamesGrid = document.getElementById('gamesGrid')
   if (!gamesGrid) return
 
-  const games = getFilteredGames()
+  // 1. Filter Active Games
+  let displayGames = gamesData.filter(game => game.status === 1)
 
-  if (games.length === 0) {
+  // 2. Apply Quick Action Filters
+  if (currentFilter === 'hot') {
+    // Sort by favorite count descending
+    displayGames = displayGames.sort((a, b) => b.favorite_game - a.favorite_game)
+  }
+
+  if (displayGames.length === 0) {
     gamesGrid.innerHTML = `
-      <div class="py-12 text-center opacity-50">
-        <p class="font-bold text-slate-400">No books found...</p>
+      <div class="col-span-2 py-12 text-center opacity-50">
+        <p class="font-bold text-slate-400">No games found...</p>
       </div>
     `
     renderIcons()
     return
   }
 
-  gamesGrid.innerHTML = games.map(createGameCard).join('')
+  gamesGrid.innerHTML = displayGames.map(createGameCard).join('')
   renderIcons()
 
   gamesGrid.querySelectorAll('.card-book-grid').forEach(card => {
     card.addEventListener('click', () => {
       const id = (card as HTMLElement).dataset.gameId
-      console.log('READ_BOOK_GAME:', id)
+      console.log('GAME_CLICK:', id)
     })
   })
 }
 
-// Initialize Quick Actions (Simple Grid Logic if needed)
-// ... logic handled in HTML for fixed grid, but we can keep Category logic just in case we need chips later.
-// Initialize Main Categories
+// Category Tabs
 const initCategoryTabs = (): void => {
   const categories = document.getElementById('mainCategories')
   if (!categories) return
 
   categories.querySelectorAll('.cat-item-main').forEach(item => {
     item.addEventListener('click', () => {
-      const category = (item as HTMLElement).dataset.category
-      if (category) {
-        currentCategory = category
-        console.log('CATEGORY_SWITCH:', category)
+      const rawCategory = (item as HTMLElement).dataset.category || 'slots'
+      const apiCategory = TYPE_MAPPING[rawCategory] || rawCategory
 
-        // Visual Feedback (Simple Animation)
+      if (apiCategory !== currentCategory) {
+        currentCategory = apiCategory
+        // Visual Update - can be enhanced if 'active' class exists
         item.classList.add('scale-95')
         setTimeout(() => item.classList.remove('scale-95'), 150)
 
-        renderGames()
+        fetchGames(currentCategory)
       }
     })
   })
 }
 
-// Initialize Filter Tabs (Secondary Actions)
-const initFilterTabs = (): void => {
+// Quick Actions (Filtering)
+const initQuickActions = (): void => {
   const quickActions = document.getElementById('quickActions')
   if (!quickActions) return
 
   quickActions.querySelectorAll('.action-pill').forEach(item => {
     item.addEventListener('click', () => {
-      const action = (item as HTMLElement).dataset.action
-      console.log('QUICK_ACTION:', action)
-
       // Visual Update
       quickActions.querySelectorAll('.action-pill').forEach(p => p.classList.remove('active'))
       item.classList.add('active')
 
-      if (action === 'all' || action === 'hot') {
-        currentFilter = action
-        renderGames()
-      }
+      const action = (item as HTMLElement).dataset.action || 'all'
+      currentFilter = action
+      console.log('Refiltering:', currentFilter)
+
+      renderGames()
     })
   })
 }
 
-// Update Filter Visuals (Removed explicit logic, handled in grid)
-const updateFilterVisuals = () => {
-  const filterTabs = document.getElementById('filterTabs')
-  if (!filterTabs) return
-  // Logic simplified for this theme, usually filters handled differently
+
+
+// Bottom Navigation Reference
+const initBottomNav = (): void => {
+  const navItems = document.querySelectorAll('.nav-item-clean') // Updated selector from previous HTML (was .nav-item-clean, previous TS said .mobile-nav-item? Let's check HTML)
+  // HTML Line 144: <button class="nav-item-clean active" data-nav="home">
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      navItems.forEach(nav => nav.classList.remove('active'))
+      item.classList.add('active')
+      const target = (item as HTMLElement).dataset.nav
+      if (target === 'home') window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+  })
 }
 
-
-// Initialize Sticky Header Effect
+// Header Scroll Effect
 const initScrollEffect = (): void => {
-  const header = document.getElementById('mainHeader')
+  const header = document.querySelector('header')
+  if (!header) return
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 10) {
-      header?.classList.add('scrolled')
-    } else {
-      header?.classList.remove('scrolled')
+      // header.classList.add('scrolled') // Add style if defined
+      // Logic stubbed for now
     }
   })
 }
 
-// Initialize Load More
-const initLoadMoreBtn = (): void => {
-  const loadMoreBtn = document.getElementById('loadMoreBtn')
-  if (!loadMoreBtn) return
-
-  loadMoreBtn.addEventListener('click', () => {
-    loadMoreBtn.innerHTML = '<i data-lucide="loader-2" class="animate-spin w-4 h-4"></i> 載入中...'
-    renderIcons()
-
-    setTimeout(() => {
-      loadMoreBtn.innerHTML = '<span class="text-slate-600">已經到底了</span>'
-      loadMoreBtn.classList.add('cursor-not-allowed')
-    }, 800)
-  })
-}
-
-// Initialize Bottom Nav
-const initBottomNav = (): void => {
-  const navItems = document.querySelectorAll('.mobile-nav-item')
-
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      // Remove active from all
-      navItems.forEach(nav => nav.classList.remove('active'))
-      // Add active to current
-      item.classList.add('active')
-
-      const navTarget = (item as HTMLElement).dataset.nav
-      console.log(`Navigate to: ${navTarget}`)
-
-      // Dynamic icon handling for "Home" (just visual feedback)
-      if (navTarget === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }
-    })
-  })
-}
-
-// Initialize app
 const init = (): void => {
-  loadFavorites()
   initCategoryTabs()
-  initFilterTabs()
-  initScrollEffect()
-  initLoadMoreBtn()
+  initQuickActions()
   initBottomNav()
-  updateFilterVisuals() // Set initial filter state
-  renderGames()
+  initScrollEffect()
+  // initLoadMoreBtn() // Logic empty currently, uncomment if implemented
 
-  console.log('🎰 Premium Casino initialized!')
+  fetchGames('slot')
+
+  // Use Environmental Variables
+  document.title = `${__APP_NAME__} | 頂級線上遊戲平台`
+  console.log(`🚀 ${__APP_NAME__} ${__APP_VERSION__} Initialized`)
+  console.log('⚡️ Game API Integrated')
 }
 
-// Run when DOM is ready
 document.addEventListener('DOMContentLoaded', init)
+

@@ -18,6 +18,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue"
   },
   "include": [
     "src"
